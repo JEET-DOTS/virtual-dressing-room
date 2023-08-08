@@ -17,12 +17,19 @@
                     <div class="card-header">
                         <h3 class="card-title">Admin Categories</h3>
                         <div class="card-tools">
-                            <a href="{{ route('sub-categories-add',[$cat_id]) }}"
-                                class="btn btn-block btn-primary btn-sm"><i class="fa fa-plus"></i> Add Sub Categories</a>
+                                <a href="{{ route('sub-categories-add',[$cat_id]) }}"
+                                    class="btn btn-block btn-primary btn-sm"><i class="fa fa-plus"></i> Add Sub Categories</a>
+                                @if($parentId)
+                                    <a href="{{ route('sub-categories',[$parentId]) }}"
+                                    class="btn btn-block btn-primary btn-sm">Back</a>
+                                @else
+                                    <a href="{{ route('categories') }}"
+                                    class="btn btn-block btn-primary btn-sm">Back</a>
+                                @endif
                         </div>
                     </div>
                     <!-- /.card-header -->
-                    <div class="card-body">
+                    <div class="card-body" id="categoryListInAdmin">
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
@@ -30,6 +37,7 @@
                                     <th>S.No.</th>
                                     <th scope="col">Title</th>
                                     <th>Image</th>
+                                    <th>Icon</th>
                                     <th scope="col" class="actions">Action</th>
                                 </tr>
                                 </tr>
@@ -48,6 +56,7 @@
                                                 <img src="{{ asset($category->image) }}" width="100" />
                                                 @endif
                                             </td>
+                                            <td ><span class="{{ $category->icon }}"></span></td>
                                             <td class="actions action-btn-tab">
 
                                                 <a href="{{ route('sub-categories-show', [$category->id]) }}"
@@ -60,7 +69,7 @@
                                                     title="" data-original-title="Edit"><i
                                                         class="fa fa-edit"></i></a>
 
-                                                <a href="javascript:void(0);"
+                                                <a href="{{ route('sub-categories-destroy', $category->id) }}"
                                                     class="confirmDeleteBtn btn btn-danger btn-sm" data-toggle="tooltip"
                                                     alt="Delete {{ $category->title }}"
                                                     title="Delete  Category"

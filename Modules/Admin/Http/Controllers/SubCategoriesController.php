@@ -20,9 +20,13 @@ class SubCategoriesController extends Controller
     public function index($cat_id,Request $request)
     {
         try {
-            $currentCat = Category::with('getParentCategories')->where('parent_id',$cat_id)->first();
+            $currentCat = Category::with('getParentCategories')->where('id',$cat_id)->first();
+            $parentId = "";
+            if($currentCat){
+                $parentId = $currentCat->parent_id;
+            }
             $categories = Category::where('parent_id',$cat_id)->orderBy('id','asc')->paginate(10);
-            return view('admin::categories.subcategories.index', compact('categories','cat_id','currentCat'));
+            return view('admin::categories.subcategories.index', compact('categories','cat_id','parentId','currentCat'));
         } catch (\Throwable $th) {
             return redirect()->back()->with('error', $th->getMessage());
         }
@@ -108,20 +112,15 @@ class SubCategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id = null)
+    public function destroy($id)
     {
-            DB::beginTransaction();
-            try {
-                $businesscategory = Category::findOrFail($id);
-                $businesscategory->delete();
-                CategoryListing::where('category_id',$id)->delete();
-                DB::commit();
-                $responce = ['status' => true, 'message' => 'This Category been deleted successfully.', 'data' => $businesscategory];
-            } catch (\Exception $e) {
-                DB::rollBack();
-                $responce = ['status' => false, 'message' => $e->getMessage()];
-            }
-            return $responce;
+        try {
+            $businesscategory = Category::findOrFail($id);
+            $businesscategory->delete();
+            return back();
+        } catch (\Exception $e) {
+            return back()->withError($e->getMessage());
+        }
     }
 
 

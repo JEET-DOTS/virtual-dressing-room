@@ -27,5 +27,15 @@ Route::prefix('admin')->group(function() {
     Route::get('/sub-categories/view/{cat_id}',[Modules\Admin\Http\Controllers\SubCategoriesController::class,'view'])->name('sub-categories-show');
     Route::get('/sub-categories/edit/{cat_id}',[Modules\Admin\Http\Controllers\SubCategoriesController::class,'edit'])->name('sub-categories-edit');
     Route::patch('/sub-categories/update/{cat_id}',[Modules\Admin\Http\Controllers\SubCategoriesController::class,'update'])->name('sub-categories-update');
-    Route::delete('/sub-categories/delete/{cat_id}',[Modules\Admin\Http\Controllers\SubCategoriesController::class,'destroy'])->name('sub-categories-destroy');
+    Route::get('/sub-categories/delete/{cat_id}',[Modules\Admin\Http\Controllers\SubCategoriesController::class,'destroy'])->name('sub-categories-destroy');
+
+
+    Route::get('/thumb-images',[Modules\Admin\Http\Controllers\ThumbImagesController::class,'index'])->name('thumb-images');
+    Route::get('/thumb-images/create',[Modules\Admin\Http\Controllers\ThumbImagesController::class,'create'])->name('thumb-images.create');
+    Route::post('/thumb-images/store',[Modules\Admin\Http\Controllers\ThumbImagesController::class,'store'])->name('thumb-images.store');
+    Route::get('/thumb-images/view/{cat_id}',[Modules\Admin\Http\Controllers\ThumbImagesController::class,'show'])->name('thumb-images.show');
+    Route::get('/thumb-images/edit/{cat_id}',[Modules\Admin\Http\Controllers\ThumbImagesController::class,'edit'])->name('thumb-images.edit');
+    Route::post('/thumb-images/update/',[Modules\Admin\Http\Controllers\ThumbImagesController::class,'update'])->name('thumb-images.update');
+    Route::delete('/thumb-images/delete/{cat_id}',[Modules\Admin\Http\Controllers\ThumbImagesController::class,'destroy'])->name('thumb-images.destroy');
+
 });
