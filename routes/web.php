@@ -15,22 +15,25 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    if(auth()->check()){
+        if(auth()->user()->role == 'user'){
+            return redirect('dashboard');
+        }else{
+            return redirect('admin');
+        }
+    }else{
+        return redirect('login');
+    }
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth','checkRole'])->group(function () {
     Route::get('/dashboard',[App\Http\Controllers\HomeController::class,'index'])->name('dashboard');
-
-
     Route::get('/get-data',[App\Http\Controllers\HomeController::class,'getData'])->name('get-data');
-
-
     Route::get('/get-color/{id}',[App\Http\Controllers\HomeController::class,'getColor'])->name('get-color');
     Route::get('/get-style/{id}',[App\Http\Controllers\HomeController::class,'getStyle'])->name('get-style');
     Route::get('/get-buttons',[App\Http\Controllers\HomeController::class,'getButtons'])->name('get-buttons');
     Route::get('/get-lapel-medium',[App\Http\Controllers\HomeController::class,'getLapelMedium'])->name('get-lapel-medium');
     Route::get('/get-lapel-width',[App\Http\Controllers\HomeController::class,'getLapelWidth'])->name('get-lapel-width');
-
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

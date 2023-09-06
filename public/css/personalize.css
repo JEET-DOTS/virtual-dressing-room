@@ -7295,3 +7295,22 @@ ul.filter li.active span.check {
         border-bottom: 1px solid #d6d6d6
     }
 }
+
+
+.dress-sec {
+	padding-top: 142px;
+	padding-bottom: 115px;
+}
+
+.dress-sec #LongPant {
+	margin-top: -146px;
+}
+
+.man_shose {
+	top: inherit;
+	bottom: -123px;
+}
+
+.man_body {
+    top: -91px;
+}

@@ -39,6 +39,16 @@ class ThumbImagesController extends Controller
                 'espalda_arriba' => 'required|mimes:jpg,jpeg,png|max:2048',
                 'top_espalda_arriba' => 'required|mimes:jpg,jpeg,png|max:2048',
                 'etiquetas' => 'required|mimes:jpg,jpeg,png|max:2048',
+                'length_long' => 'required|mimes:jpg,jpeg,png|max:2048',
+                'front_pocket' => 'required|mimes:jpg,jpeg,png|max:2048',
+                'back_pocket_with_button' => 'required|mimes:jpg,jpeg,png|max:2048',
+                'length_long_cut_slim' => 'required|mimes:jpg,jpeg,png|max:2048',
+                'length_long_pleats_single' => 'required|mimes:jpg,jpeg,png|max:2048',
+                'length_long_diagonal' => 'required|mimes:jpg,jpeg,png|max:2048',
+                'length_long_visible_button' => 'required|mimes:jpg,jpeg,png|max:2048',
+                'length_long_belt_loop' => 'required|mimes:jpg,jpeg,png|max:2048',
+                'length_long_zapatos' => 'required|mimes:jpg,jpeg,png|max:2048',
+                'length_long_pant_cuffs' => 'required|mimes:jpg,jpeg,png|max:2048'
             ]);
             $requestData = $request->all();
 
@@ -78,6 +88,50 @@ class ThumbImagesController extends Controller
             $filePath = $request->file('etiquetas')->storeAs('thumb', $fileName, 'public');
             $requestData['etiquetas'] = '/storage/' . $filePath;
 
+
+            $fileName = time().'_'.$request->length_long->getClientOriginalName();
+            $filePath = $request->file('length_long')->storeAs('thumb', $fileName, 'public');
+            $requestData['length_long'] = '/storage/' . $filePath;
+
+            $fileName = time().'_'.$request->front_pocket->getClientOriginalName();
+            $filePath = $request->file('front_pocket')->storeAs('thumb', $fileName, 'public');
+            $requestData['front_pocket'] = '/storage/' . $filePath;
+
+            $fileName = time().'_'.$request->back_pocket_with_button->getClientOriginalName();
+            $filePath = $request->file('back_pocket_with_button')->storeAs('thumb', $fileName, 'public');
+            $requestData['back_pocket_with_button'] = '/storage/' . $filePath;
+
+            // Long Pant
+
+            $fileName = time().'_'.$request->length_long_cut_slim->getClientOriginalName();
+            $filePath = $request->file('length_long_cut_slim')->storeAs('thumb', $fileName, 'public');
+            $requestData['length_long_cut_slim'] = '/storage/' . $filePath;
+
+            $fileName = time().'_'.$request->length_long_pleats_single->getClientOriginalName();
+            $filePath = $request->file('length_long_pleats_single')->storeAs('thumb', $fileName, 'public');
+            $requestData['length_long_pleats_single'] = '/storage/' . $filePath;
+
+            $fileName = time().'_'.$request->length_long_diagonal->getClientOriginalName();
+            $filePath = $request->file('length_long_diagonal')->storeAs('thumb', $fileName, 'public');
+            $requestData['length_long_diagonal'] = '/storage/' . $filePath;
+
+            $fileName = time().'_'.$request->length_long_visible_button->getClientOriginalName();
+            $filePath = $request->file('length_long_visible_button')->storeAs('thumb', $fileName, 'public');
+            $requestData['length_long_visible_button'] = '/storage/' . $filePath;
+
+            $fileName = time().'_'.$request->length_long_belt_loop->getClientOriginalName();
+            $filePath = $request->file('length_long_belt_loop')->storeAs('thumb', $fileName, 'public');
+            $requestData['length_long_belt_loop'] = '/storage/' . $filePath;
+
+            $fileName = time().'_'.$request->length_long_zapatos->getClientOriginalName();
+            $filePath = $request->file('length_long_zapatos')->storeAs('thumb', $fileName, 'public');
+            $requestData['length_long_zapatos'] = '/storage/' . $filePath;
+
+            $fileName = time().'_'.$request->length_long_pant_cuffs->getClientOriginalName();
+            $filePath = $request->file('length_long_pant_cuffs')->storeAs('thumb', $fileName, 'public');
+            $requestData['length_long_pant_cuffs'] = '/storage/' . $filePath;
+
+
             ThumbImage::create($requestData);
             return redirect()->route('thumb-images')->with('success', 'Thumb Images has been saved successfully');
         } catch (\Illuminate\Database\QueryException $e) {
@@ -116,6 +170,17 @@ class ThumbImagesController extends Controller
                 'espalda_arriba' => 'mimes:jpg,jpeg,png|max:2048',
                 'top_espalda_arriba' => 'mimes:jpg,jpeg,png|max:2048',
                 'etiquetas' => 'mimes:jpg,jpeg,png|max:2048',
+                'length_long' => 'mimes:jpg,jpeg,png|max:2048',
+                'front_pocket' => 'mimes:jpg,jpeg,png|max:2048',
+                'back_pocket_with_button' => 'mimes:jpg,jpeg,png|max:2048',
+
+                'length_long_cut_slim' => 'mimes:jpg,jpeg,png|max:2048',
+                'length_long_pleats_single' => 'mimes:jpg,jpeg,png|max:2048',
+                'length_long_diagonal' => 'mimes:jpg,jpeg,png|max:2048',
+                'length_long_visible_button' => 'mimes:jpg,jpeg,png|max:2048',
+                'length_long_belt_loop' => 'mimes:jpg,jpeg,png|max:2048',
+                'length_long_zapatos' => 'mimes:jpg,jpeg,png|max:2048',
+                'length_long_pant_cuffs' => 'mimes:jpg,jpeg,png|max:2048'
             ]);
             $requestData = $request->all();
             if($request->hip_pockets){
@@ -163,11 +228,64 @@ class ThumbImagesController extends Controller
                 $filePath = $request->file('etiquetas')->storeAs('thumb', $fileName, 'public');
                 $requestData['etiquetas'] = '/storage/' . $filePath;
             }
+            if($request->length_long){
+                $fileName = time().'_'.$request->length_long->getClientOriginalName();
+                $filePath = $request->file('length_long')->storeAs('thumb', $fileName, 'public');
+                $requestData['length_long'] = '/storage/' . $filePath;
+            }
+            if($request->front_pocket){
+                $fileName = time().'_'.$request->front_pocket->getClientOriginalName();
+                $filePath = $request->file('front_pocket')->storeAs('thumb', $fileName, 'public');
+                $requestData['front_pocket'] = '/storage/' . $filePath;
+            }
+            if($request->back_pocket_with_button){
+                $fileName = time().'_'.$request->back_pocket_with_button->getClientOriginalName();
+                $filePath = $request->file('back_pocket_with_button')->storeAs('thumb', $fileName, 'public');
+                $requestData['back_pocket_with_button'] = '/storage/' . $filePath;
+            }
+
+
+            // Long Pant
+            if($request->length_long_cut_slim){
+                $fileName = time().'_'.$request->length_long_cut_slim->getClientOriginalName();
+                $filePath = $request->file('length_long_cut_slim')->storeAs('thumb', $fileName, 'public');
+                $requestData['length_long_cut_slim'] = '/storage/' . $filePath;
+            }
+            if($request->length_long_pleats_single){
+                $fileName = time().'_'.$request->length_long_pleats_single->getClientOriginalName();
+                $filePath = $request->file('length_long_pleats_single')->storeAs('thumb', $fileName, 'public');
+                $requestData['length_long_pleats_single'] = '/storage/' . $filePath;
+            }
+            if($request->length_long_diagonal){
+                $fileName = time().'_'.$request->length_long_diagonal->getClientOriginalName();
+                $filePath = $request->file('length_long_diagonal')->storeAs('thumb', $fileName, 'public');
+                $requestData['length_long_diagonal'] = '/storage/' . $filePath;
+            }
+            if($request->length_long_visible_button){
+                $fileName = time().'_'.$request->length_long_visible_button->getClientOriginalName();
+                $filePath = $request->file('length_long_visible_button')->storeAs('thumb', $fileName, 'public');
+                $requestData['length_long_visible_button'] = '/storage/' . $filePath;
+            }
+            if($request->length_long_belt_loop){
+                $fileName = time().'_'.$request->length_long_belt_loop->getClientOriginalName();
+                $filePath = $request->file('length_long_belt_loop')->storeAs('thumb', $fileName, 'public');
+                $requestData['length_long_belt_loop'] = '/storage/' . $filePath;
+            }
+            if($request->length_long_zapatos){
+                $fileName = time().'_'.$request->length_long_zapatos->getClientOriginalName();
+                $filePath = $request->file('length_long_zapatos')->storeAs('thumb', $fileName, 'public');
+                $requestData['length_long_zapatos'] = '/storage/' . $filePath;
+            }
+            if($request->length_long_pant_cuffs){
+                $fileName = time().'_'.$request->length_long_pant_cuffs->getClientOriginalName();
+                $filePath = $request->file('length_long_pant_cuffs')->storeAs('thumb', $fileName, 'public');
+                $requestData['length_long_pant_cuffs'] = '/storage/' . $filePath;
+            }
+
             unset($requestData['_token']);
             ThumbImage::where("id",$request->id)->update($requestData);
-            return redirect()->route('categories')->with('success', 'Category has been updated successfully.');
+            return redirect()->route('thumb-images')->with('success', 'Category has been updated successfully.');
         } catch (\Illuminate\Database\QueryException $e) {
-            dd($e);
             return back()->withError($e->getMessage())->business-categorieswithInput();
         }
 

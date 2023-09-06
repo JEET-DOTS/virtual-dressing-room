@@ -10,7 +10,7 @@
 |
 */
 
-Route::prefix('admin')->group(function() {
+Route::prefix('admin')->middleware(['auth','checkAdmin'])->group(function() {
     Route::get('/', 'AdminController@index');
 
     Route::get('/categories',[Modules\Admin\Http\Controllers\CategoriesController::class,'index'])->name('categories');
@@ -28,6 +28,7 @@ Route::prefix('admin')->group(function() {
     Route::get('/sub-categories/edit/{cat_id}',[Modules\Admin\Http\Controllers\SubCategoriesController::class,'edit'])->name('sub-categories-edit');
     Route::patch('/sub-categories/update/{cat_id}',[Modules\Admin\Http\Controllers\SubCategoriesController::class,'update'])->name('sub-categories-update');
     Route::get('/sub-categories/delete/{cat_id}',[Modules\Admin\Http\Controllers\SubCategoriesController::class,'destroy'])->name('sub-categories-destroy');
+    Route::get('/sub-categories-status/{cat_id}/{status}',[Modules\Admin\Http\Controllers\SubCategoriesController::class,'changeStatus'])->name('sub-categories-status');
 
 
     Route::get('/thumb-images',[Modules\Admin\Http\Controllers\ThumbImagesController::class,'index'])->name('thumb-images');

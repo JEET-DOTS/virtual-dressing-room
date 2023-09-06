@@ -28,6 +28,7 @@ class SubCategoriesController extends Controller
             $categories = Category::where('parent_id',$cat_id)->orderBy('id','asc')->paginate(10);
             return view('admin::categories.subcategories.index', compact('categories','cat_id','parentId','currentCat'));
         } catch (\Throwable $th) {
+            dd($th);
             return redirect()->back()->with('error', $th->getMessage());
         }
 
@@ -154,6 +155,17 @@ class SubCategoriesController extends Controller
             'status' => 200,
             'message' => 'Successfully update',
         ]);
+    }
+
+    function changeStatus($id,$status){
+        try {
+            $status = ($status == 0) ? 1 : 0;
+            Category::where('id',$id)->update(['status' => $status]);
+            return back()->withSucess("Sucessfully update");
+        } catch (\Throwable $e) {
+            dd($e);
+            return back()->withError($e->getMessage());
+        }
     }
 
 }

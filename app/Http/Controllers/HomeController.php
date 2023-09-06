@@ -14,20 +14,20 @@ class HomeController
 {
     function index(){
         $main = Category::where("title","Fabric")->first();
-        $sub  =  Category::where("parent_id",$main->id)->get();
+        $sub  =  Category::where("parent_id",$main->id)->where("status",0)->get();
         $thumbImage = ThumbImage::first();
         return view('dashboard',compact("sub","thumbImage"));
     }
 
     function getStyle($id){
-        $sub  =  Category::with("getSubCategories")->where("parent_id",$id)->get();
+        $sub  =  Category::with("getSubCategories")->where("status",0)->where("parent_id",$id)->get();
         return response()->json($sub,200);
     }
 
     function getButtons(Request $request){
         $style = explode(' ',$request->button);
         if(count($style) > 2){
-            $sub  =  Category::where('parent_id',$request->ButtonStyle)->where("title",'LIKE','%'.$style[1].'%')->first();
+            $sub  =  Category::where('parent_id',$request->ButtonStyle)->where("status",0)->where("title",'LIKE','%'.$style[1].'%')->first();
             if($sub){
                 return response()->json($sub,200);
             }else{
@@ -40,9 +40,9 @@ class HomeController
     }
 
     function getLapelMedium(Request $request){
-        $lapelMedium  =  Category::where('parent_id',$request->id)->where("title",'images')->first();
+        $lapelMedium  =  Category::where('parent_id',$request->id)->where("title",'images')->where("status",0)->first();
         if($lapelMedium){
-            $lapelMediumImages  =  Category::where('parent_id',$lapelMedium->id)->where("title",'LIKE','%'.$request->lapelMedium.'%')->first();
+            $lapelMediumImages  =  Category::where('parent_id',$lapelMedium->id)->where("status",0)->where("title",'LIKE','%'.$request->lapelMedium.'%')->first();
             return response()->json($lapelMediumImages,200);
         }else{
             return response()->json('',200);
@@ -56,9 +56,9 @@ class HomeController
 
 
     function getLapelWidth(Request $request){
-        $lapelWidth  =  Category::where('parent_id',$request->id)->where("title",'images')->first();
+        $lapelWidth  =  Category::where('parent_id',$request->id)->where("status",0)->where("title",'images')->first();
         if($lapelWidth){
-            $lapelWidthImages  =  Category::where('parent_id',$lapelWidth->id)->where("title",$request->lapelMedium)->first();
+            $lapelWidthImages  =  Category::where('parent_id',$lapelWidth->id)->where("title",$request->lapelMedium)->where("status",0)->first();
             return response()->json($lapelWidthImages,200);
         }else{
             return response()->json('',200);

@@ -1301,9 +1301,14 @@ line-height: 23px;
 
 .fabric-box {
     margin-bottom: 20px;
-border: 1px solid #ddd;
+    border: 1px solid #ddd;
 border-radius: 5px;
+cursor: pointer;
   }
+
+  .fabric-box.active {
+    background: #ebebeb;
+   }
 
   .fabric-info-title {
     flex: 1;
@@ -1364,13 +1369,20 @@ border-radius: 5px;
   }
 
   .fabric-contain-section {
-	height: calc(100vh - 205px);
+	height: calc(100vh - 1px);
 	overflow-y: auto;
 	overflow-x: clip;
+    padding-right: 10px;
 }
 
 
-.option_trigger.active::after, .option_trigger.active::after{
+.fabric-contain-section::-webkit-scrollbar { width:10px; height:10px;}
+.fabric-contain-section::-webkit-scrollbar-track {background: #f5f2f2;}
+.fabric-contain-section::-webkit-scrollbar-thumb {background: #dddddd;}
+.fabric-contain-section::-webkit-scrollbar-thumb:hover {background: #dddddd; }
+.fabric-contain-section {scrollbar-width: thin; scrollbar-color: #dddddd  #f5f2f2;}
+
+.option_trigger.active::after{
     font-family: nc-nav;
     content: "i";
     font-weight: 700;
@@ -1392,12 +1404,35 @@ border-radius: 5px;
   }
 
   #fabricList .active .fabric-box{
-    border-color: #e60c0c;
+    background: #e6e3e3;
+    box-shadow: 1px 1px 10px rgba(0,0,0,0.1);
   }
-  .layers{
-    position: relative;
-  }
+
+
+  .layers {
+	position: relative;
+	min-height: 390px;
+	margin-top: -30px;
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+	width: 300px;
+}
 
   .layers img {
     position: absolute;
+    max-width: 300px;
+  }
+  .pant-layers{
+    position: relative;
+	min-height: 150px;
+	margin-left: auto;
+	margin-right: auto;
+    margin-top: -45px;
+	display: block;
+	width: 300px;
+  }
+  .pant-layers img {
+    position: absolute;
+    max-width: 300px;
   }
